@@ -1,0 +1,464 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Simulating fluid, smoke, and sand simutaneously on the GPU | Muradil </title> <meta name="author" content="Muradil Ablikim"> <meta name="description" content="2D pixel physics simulation"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://miradilabk.github.io/blog/2026/Pixel-Physics/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Muradil </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">projects </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Simulating fluid, smoke, and sand simutaneously on the GPU</h1> <p class="post-meta"> Created on June 19, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/physics"> <i class="fa-solid fa-hashtag fa-sm"></i> physics,</a>   <a href="/blog/tag/2d"> <i class="fa-solid fa-hashtag fa-sm"></i> 2D</a>   ·   <a href="/blog/category/devlog"> <i class="fa-solid fa-tag fa-sm"></i> devlog</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <h4 id="simple-noita-like-demo">Simple Noita-like Demo</h4> <p>I really enjoyed playing <a href="https://store.steampowered.com/app/881100/Noita/" rel="external nofollow noopener" target="_blank">Noita</a> and was really impressed by the 2d pixel physics simulation in the game. I watched the <a href="https://www.youtube.com/watch?v=prXuyMCgbTc" rel="external nofollow noopener" target="_blank">GDC talk</a> about the tech behind Noita and made a small demo in Unity replicating the pixel physics part.</p> <figure> <video src="/assets/video/pixel_physics_demo.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""></video> </figure> <p>This demo runs on CPU and it’s pretty simple. In fixed update we loop over every pixel and check which type of pixel it is and try to move it in every direction it can. For example, sand pixel can fall directly downwards(0,-1), or bottom left(-1, -1), bottom right(1, -1). Water can also move horizontally (-1,0), (1,0). Gas can move up instead so it’s the reversed version of water.</p> <p>Part of the code in FixedUpdate</p> <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="n">height</span><span class="p">-</span><span class="m">1</span><span class="p">;</span> <span class="n">j</span> <span class="p">&gt;=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span><span class="p">--)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">dir</span> <span class="p">=</span> <span class="n">Random</span><span class="p">.</span><span class="nf">Range</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">dir</span><span class="p">==</span><span class="m">0</span><span class="p">?</span><span class="m">0</span><span class="p">:</span><span class="n">width</span><span class="p">-</span><span class="m">1</span><span class="p">;</span> <span class="n">dir</span><span class="p">==</span> <span class="m">0</span><span class="p">?</span><span class="n">i</span> <span class="p">&lt;</span> <span class="n">width</span> <span class="p">:</span> <span class="n">i</span> <span class="p">&gt;=</span> <span class="m">0</span><span class="p">;)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_buffer</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">].</span><span class="n">isParticle</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">dir</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span> <span class="n">i</span><span class="p">++;</span>
+            <span class="k">else</span> <span class="n">i</span><span class="p">--;</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">short</span> <span class="n">elementId</span> <span class="p">=</span> <span class="n">_buffer</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">].</span><span class="n">elementId</span><span class="p">;</span>
+        <span class="kt">var</span> <span class="n">element</span> <span class="p">=</span> <span class="n">elements</span><span class="p">[</span><span class="n">elementId</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">elementId</span> <span class="p">!=</span> <span class="m">0</span> <span class="p">&amp;&amp;</span> <span class="n">elementId</span> <span class="p">&lt;</span> <span class="n">elements</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">k</span> <span class="p">&lt;</span> <span class="n">element</span><span class="p">.</span><span class="n">directions</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">k</span><span class="p">++)</span>
+            <span class="p">{</span>
+                <span class="n">Vector2Int</span> <span class="n">direction</span> <span class="p">=</span> <span class="n">element</span><span class="p">.</span><span class="n">directions</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+                <span class="kt">int</span> <span class="n">x</span> <span class="p">=</span> <span class="n">i</span> <span class="p">+</span> <span class="n">direction</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+                <span class="kt">int</span> <span class="n">y</span> <span class="p">=</span> <span class="n">j</span> <span class="p">+</span> <span class="n">direction</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(!</span><span class="nf">IsInBounds</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="k">continue</span><span class="p">;</span>
+                <span class="kt">var</span> <span class="n">neighborElement</span> <span class="p">=</span> <span class="n">elements</span><span class="p">[</span><span class="n">_buffer</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">].</span><span class="n">elementId</span><span class="p">];</span>
+                <span class="kt">short</span> <span class="n">res1</span><span class="p">=</span><span class="m">0</span><span class="p">,</span> <span class="n">res2</span><span class="p">=</span><span class="m">0</span><span class="p">;</span>
+                <span class="kt">var</span> <span class="n">hasReaction</span> <span class="p">=</span>
+                <span class="n">PixelChemistryController</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="nf">CheckReaction</span><span class="p">(</span><span class="n">elementId</span><span class="p">,</span> <span class="n">_buffer</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">].</span><span class="n">elementId</span><span class="p">,</span> 
+                    <span class="k">ref</span> <span class="n">res1</span><span class="p">,</span> <span class="k">ref</span> <span class="n">res2</span><span class="p">);</span>
+                
+                <span class="k">if</span> <span class="p">(</span><span class="n">hasReaction</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nf">ChangePixel</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">res1</span><span class="p">);</span>
+                    <span class="nf">ChangePixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">res2</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+                
+                <span class="k">if</span> <span class="p">(</span><span class="n">neighborElement</span><span class="p">.</span><span class="n">type</span> <span class="p">&lt;</span> <span class="n">elements</span><span class="p">[</span><span class="n">elementId</span><span class="p">].</span><span class="n">type</span> <span class="p">&amp;&amp;</span> <span class="n">Random</span><span class="p">.</span><span class="k">value</span><span class="p">*</span><span class="m">100</span> <span class="p">&lt;</span> <span class="n">element</span><span class="p">.</span><span class="n">movePossibility</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nf">SwapPixel</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">Random</span><span class="p">.</span><span class="k">value</span> <span class="p">&lt;</span> <span class="m">0.1f</span> <span class="p">&amp;&amp;</span> <span class="n">neighborElement</span><span class="p">.</span><span class="n">type</span> <span class="p">==</span> <span class="n">ElementType</span><span class="p">.</span><span class="n">Liquid</span> <span class="p">&amp;&amp;</span>
+                    <span class="n">elements</span><span class="p">[</span><span class="n">elementId</span><span class="p">].</span><span class="n">type</span> <span class="p">==</span> <span class="n">ElementType</span><span class="p">.</span><span class="n">Liquid</span> <span class="p">&amp;&amp;</span> <span class="n">Random</span><span class="p">.</span><span class="k">value</span><span class="p">*</span><span class="m">100</span> <span class="p">&lt;</span> <span class="n">element</span><span class="p">.</span><span class="n">movePossibility</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nf">SwapPixel</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">dir</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span> <span class="n">i</span><span class="p">++;</span>
+        <span class="k">else</span> <span class="n">i</span><span class="p">--;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div> <h4 id="fluid-simulation">Fluid Simulation</h4> <p>While this is cool, I couldn’t help but notice the pixel movement isn’t very realistic. Especially for water and gas, it’s not flowing or diffusing. So I started digging around to see if there’s a way to simulate fluid more accurately. And indeed there is! I found <a href="https://www.youtube.com/watch?v=rSKMYc1CQHE" rel="external nofollow noopener" target="_blank">this tutorial</a> is really good for beginners like me and I followed it step by step and made this:</p> <figure> <video src="/assets/video/fluid_simulation.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""></video> </figure> <p>This fluid simulation runs on the GPU with compute shader. The main logic is no water particle cannot be too close to each other, but also has an attraction force to keep the water shape. To achieve that we need to calculate the density of the water particles, then we can calculate the pressure and the force to determine which direction the particle should go.</p> <p>If we do this by brute force, it will be very slow calculating particle’s density by looping over all the particles. Instead we can only check surrounding particles by partitioning the space into grids. Then we can only check the particles in the neighboring grids. We need spatial hashing to assign a grid index by particle position. Then we have to sort the particle indices by hashed grid index so that we can loop over all particles in any grid. Because we’re on the GPU so we have to use the <a href="https://quinstonpimenta.medium.com/bitonic-merge-sort-explanation-and-code-tutorial-5688bd3507fb" rel="external nofollow noopener" target="_blank">Bitonic Merge Sort</a> which is optimized for parallel processing.</p> <pre><code class="language-GLSL">float2 CalculateDensity(float2 pos)
+{
+    float density = 0;
+    float nearDensity = 0;
+    for (int i = -1; i &lt;= 1; i++)
+        for (int j = -1; j &lt;= 1; j++)
+        {
+            float x = pos.x + smoothRadius * i;
+            float y = pos.y + smoothRadius * j;
+            uint thisHash = GetHashByPos(x,y);
+            for (uint k = startIndices[thisHash]; k &lt; particleCnt &amp;&amp; spacialHash[spacialHashKeys[k]].x == thisHash; k++)
+            {
+                uint ii = spacialHash[spacialHashKeys[k]].y;
+                if (isLiquidHidden[ii]) continue;
+                float2 pos2 = predictions[ii];
+                float dst = distance(pos, pos2);
+                float w = SmoothKernel(dst);
+                density += w;
+                nearDensity += SmoothKernelSpiky(dst);
+            }
+        }
+    return float2(density, nearDensity);
+}
+</code></pre> <p>Now I have a pretty good water simulation. But I have to integrate this into the previous pixel physics demo. There are a couple of problems I have to solve:</p> <ol> <li>fluid simulation is position-based particles, but I want a pixel-based water simulation.</li> <li>How to make water particles collide with sand or other solid pixels? The previous demo runs on the CPU, which is pretty slow and not easy to make it interact with compute shader based fluid simulation.</li> </ol> <hr> <p>For the first problem, I added an extra kernel to the compute shader that can sample the density level for each pixel, then sample the density field into a texture, if the density for current pixel is higher than a certain threshold, this pixel is water pixel.</p> <figure> <video src="/assets/video/pixel_water.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""></video> </figure> <p>You may noticed that the water has a foam effect applied, that’s because I calculated a velocity-based foam factor in the compute shader as well. Basically for each pixel, I find the nearest particle to this pixel, then calculate how different the velocity is compared to other nearby particles. The bigger the velocity difference, the stronger the foam.</p> <p>Here’s the compute shader kernel for density sampling and foam calculation.</p> <pre><code class="language-GLSL">#pragma kernel SampleDensityMap
+[numthreads(8,8,1)]
+void SampleDensityMap (uint2 id: SV_DispatchThreadID)
+{
+    float2 pos = (float2)id*boundaryParticleDist;
+    if (pos.x &gt; width || pos.y &gt; height) return;
+    float2 uv = pos/float2(width,height);
+    int2 pixel = uv*boundaryTextureSize;
+    
+    
+    float density = 0;
+    uint nearestParticle = 0;
+    float nearestDist = 100000;
+    for (int i = -1; i &lt;= 1; i++)
+        for (int j = -1; j &lt;= 1; j++)
+        {
+            float x = pos.x + smoothRadius * i;
+            float y = pos.y + smoothRadius * j;
+            uint thisHash = GetHashByPos(x,y);
+            for (uint k = startIndices[thisHash]; k &lt; particleCnt &amp;&amp; spacialHash[spacialHashKeys[k]].x == thisHash; k++)
+            {
+                uint ii = spacialHash[spacialHashKeys[k]].y;
+                if (isLiquidHidden[ii]) continue;
+                float2 pos2 = predictions[ii];
+                float dst = distance(pos, pos2);
+                if (dst &lt; nearestDist)
+                {
+                    nearestDist = dst;
+                    nearestParticle = ii;
+                }
+                float w = SmoothKernel(dst);
+                density += w;
+            }
+        }
+    float densityRatio = density/targetDensity;
+    if (densityRatio &gt;= 0.7)
+    {
+        float2 nearestPos = predictions[nearestParticle];
+        float2 velDif = 0;
+        //velocity diff
+        for (int i = -1; i &lt;= 1; i++)
+            for (int j = -1; j &lt;= 1; j++)
+            {
+                float x = pos.x + smoothRadius * i;
+                float y = pos.y + smoothRadius * j;
+                uint thisHash = GetHashByPos(x,y);
+                for (uint k = startIndices[thisHash]; k &lt; particleCnt &amp;&amp; spacialHash[spacialHashKeys[k]].x == thisHash; k++)
+                {
+                    uint ii = spacialHash[spacialHashKeys[k]].y;
+                    if (isLiquidHidden[ii]) continue;
+                    float2 pos2 = predictions[ii];
+                    float dst = distance(nearestPos, pos2);
+                    float w = SmoothKernel(dst);
+                    if (isnan(velocities[ii].x)||isnan(velocities[ii].y)) continue;
+                    velDif += abs(velocities[nearestParticle]-velocities[ii])*w;
+                }
+            }
+        float foamRatio = min(1,(velDif.x+velDif.y)/foamVelocity);
+        foamRatio *= foamRatio;
+        fluidDensityMap[pixel]=densityRatio &lt; 0.7 ? 0 : lerp(float4(0.05,0.53,0.8,.1), float4(1,1,1,1), foamRatio);
+    }
+    else
+    {
+        fluidDensityMap[pixel] = float4(0,0,0,0);
+    }
+}
+</code></pre> <hr> <p>For the second problem, I converted the pixel physics script to run on compute shader. It was pretty straight forward, the kernel code:</p> <pre><code class="language-GLSL">#pragma kernel SimulateStep
+[numthreads(8,8,1)]
+void SimulateStep (uint2 id : SV_DispatchThreadID)
+{
+    /*if (id.x == 0 || id.x &gt;= size.x-1 || id.y == 0 ||id.y == size.y-1)
+    {
+        Pixels[id] = float4(1,1,1,-1);
+    }*/
+    if (distance(id, drawingPixelPos) &lt;= 5)
+    {
+        Pixels[id] = float4(pixelToDraw.rgb*(1-rand_1_05((float2)id/float2(320,180))*0.5),pixelToDraw.a);
+    }
+    if (id.y == 0 || Pixels[id].a == 0) return;
+    bool isSand = Pixels[id].a &gt; 0;
+    if (isSand)
+    {
+        if (Pixels[id+int2(0,-1)].a == 0)
+        {
+            Pixels[id+int2(0,-1)] = Pixels[id];
+            Pixels[id] = float4(0,0,0,0);
+        }
+        else
+        {
+            if (rand_1_05(id/float2(320,180)) &lt;= 0.5)
+            {
+                if (id.x &gt;0 &amp;&amp; Pixels[id+int2(-1,-1)].a == 0)
+                {
+                    Pixels[id+int2(-1,-1)] = Pixels[id];
+                    Pixels[id] = float4(0,0,0,0);
+                }
+                else if (id.x &lt; 319 &amp;&amp; Pixels[id+int2(1,-1)].a == 0)
+                {
+                    Pixels[id+int2(1,-1)] = Pixels[id];
+                    Pixels[id] = float4(0,0,0,0);
+                }
+            }
+            else
+            {
+                if (id.x &lt; 319 &amp;&amp; Pixels[id+int2(1,-1)].a == 0)
+                {
+                    Pixels[id+int2(1,-1)] = Pixels[id];
+                    Pixels[id] = float4(0,0,0,0);
+                }
+                else if (id.x &gt; 0 &amp;&amp; Pixels[id+int2(-1,-1)].a == 0)
+                {
+                    Pixels[id+int2(-1,-1)] = Pixels[id];
+                    Pixels[id] = float4(0,0,0,0);
+                }
+            }
+        }
+    }
+}
+</code></pre> <p>Currently it has two types of pixel: powder and solid, determined by the alpha value of the pixel.</p> <p>Next step is to tell the fluid simulation the boundary map. This map should contain the position and the normal vector of the boundary so that when a water particle hits a boundary, it can bounce to the right direction according to the normal vector. The map should also be updated in realtime so when player interacts with it the map will change.</p> <p>For this I made a SDF(signed distance field) generator that runs on the GPU to generate boundary map based on the pixel physics map. This map contains the shortest distance to the nearest boundary surface. So on the boundary surface pixel, the value is 0, negative inside the boundary and positive outside the boundary. With this distance information, we can calculate the normal of the boundary at any given position.</p> <pre><code class="language-GLSL">float2 SDFGradient(float2 uv)
+{
+    const float eps = 0.003125;
+    float dx = boundaryTexture.SampleLevel(sampler_LinearClamp, float2(uv.x+eps,uv.y),0).r -
+        boundaryTexture.SampleLevel(sampler_LinearClamp, float2(uv.x-eps,uv.y),0).r;
+    float dy = boundaryTexture.SampleLevel(sampler_LinearClamp, float2(uv.x,uv.y+eps),0).r -
+        boundaryTexture.SampleLevel(sampler_LinearClamp, float2(uv.x,uv.y-eps),0).r;
+    return normalize(float2(dx,dy));
+}
+</code></pre> <p>The above code showes how to get the normal vector by signed distance field, it samples the SDF texture 4 times on four neighbor pixels, then calculate the distance difference and that gives us the normal vector. Then we can use this normal vector to resolve the collision between water particle and the boundary.</p> <pre><code class="language-GLSL">float2 size = float2(width, height);
+float2 uv = pos/size;
+//in a wall
+float dist = boundaryTexture.SampleLeve(sampler_LinearClamp, uv, 0).r - 0.003125;
+if (dist &lt; 0)
+{
+    float2 normal = SDFGradient(uv);
+    pos -= normal * dist*size;
+    
+    positions[i] -= normal * dist*size;
+    float2 vn = dot(velocities[i], normal) * normal;
+    float2 vt = velocities[i] - vn;
+    velocities[i] -= vn * (1.1f);
+    velocities[i] -= vt * 0.2f;
+    
+}
+</code></pre> <p>I used <a href="https://en.wikipedia.org/wiki/Jump_flooding_algorithm" rel="external nofollow noopener" target="_blank">Jump Flooding Algorithm</a> to generate the SDF.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/SDF-480.webp 480w,/assets/img/SDF-800.webp 800w,/assets/img/SDF-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/SDF.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </picture> </figure> <pre><code class="language-GLSL">#pragma kernel JFAPass
+[numthreads(8,8,1)]
+void JFAPass(uint3 id : SV_DispatchThreadID) {
+    float2 best = Result[id.xy];
+    float2 pos = (float2)id.xy/size;
+    float bestDist = (best.x &lt; 0) ? 1e20 : distance(best, pos);
+
+    for(int ox=-1; ox&lt;=1; ox++) {
+        for(int oy=-1; oy&lt;=1; oy++) {
+            int2 n = id.xy + int2(ox, oy) * stepSize;
+            if (n.x &lt; 0 || n.y &lt; 0 || n.x &gt;= size.x || n.y &gt;= size.y) continue;
+
+            float2 candidate = Result[n];
+            if (candidate.x &lt; 0) continue;
+
+            float d = distance(candidate, pos);
+            if(d &lt; bestDist) {
+                bestDist = d;
+                best = candidate;
+            }
+        }
+    }
+    Result[id.xy] = best;
+}
+</code></pre> <p>Now we have a fluid&amp;solid&amp;powder simulation!</p> <figure> <video src="/assets/video/collision.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""></video> </figure> <h4 id="smoke-simulation">Smoke Simulation</h4> <p>Now that we have water and powder, there’s one thing still missing: Smoke. After reading a bunch of papers that I couldn’t fully understand and some really good tutorials. I found that smoke simulation is a type of fluid simulation, but using a very different technique than water simulation.</p> <p>To simulate smoke, I found the most common approach is using Eulerian Fluid Simulation which is taught in <a href="https://www.youtube.com/watch?v=iKAVRgIrUOU" rel="external nofollow noopener" target="_blank">this great video</a> and <a href="https://www.youtube.com/watch?v=Q78wvrQ9xsU&amp;t=1856s" rel="external nofollow noopener" target="_blank">this video</a>, and <a href="https://shahriyarshahrabi.medium.com/gentle-introduction-to-fluid-simulation-for-programmers-and-technical-artists-7c0045c40bac" rel="external nofollow noopener" target="_blank">this blog</a>.</p> <p>This method basically divides the area into a grid, and calculate how dense the smoke is in each grid. Then calculate a divergence value(amount of smoke going in and out of this block) and pressure value based on the density of the adjacent blocks, then try to make the amount of smoke going in and out as equal as possible so that the smoke is not compressed anywhere. It is like solving a set NxM equations with NxM variables. To solve this massive equation as fast as possible, we can use the the parallel processing power of the GPU and apply the <a href="https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method" rel="external nofollow noopener" target="_blank">Gauss-Seidel Method</a> to approximate the solution since it doesn’t have to be 100% accurate for games.</p> <p>However the Gauss-Seidel Method cannot be directly applied on the GPU side, because the neighboring blocks are being updated at the same time when the values are being used, so I had to apply the Red-Black Gauss-Seidel Method which was mentioned in the <a href="https://www.youtube.com/watch?v=Q78wvrQ9xsU&amp;t=1856s" rel="external nofollow noopener" target="_blank">second video</a>. The Gauss-Seidel kernel code:</p> <pre><code class="language-GLSL">#pragma kernel SolveIncompressibility
+[numthreads(8,8,1)]
+void SolveIncompressibility (uint2 id : SV_DispatchThreadID)
+{
+    uint oddOrEven = id.y%2;
+    int offset = (int)((redOrBlack+oddOrEven)%2);
+    int2 coord = int2((int)(id.x)*2+offset, (int)id.y);
+    if (!canFlow(coord)) return;
+    int l = canFlow(coord+left);
+    int r = canFlow(coord+right);
+    int u = canFlow(coord+up);
+    int d = canFlow(coord+down);
+    int s = l+r+u+d;
+    if (s == 0) return;
+    float divergence = Gas[coord+right].x*r-Gas[coord].x +
+        Gas[coord+up].y*u-Gas[coord].y;
+    float pressure = ((Gas[coord+right].z*r+Gas[coord+left].z*l +
+        Gas[coord+up].z*u+Gas[coord+down].z*d)- divergence)/s;
+    float oldPressure = Gas[coord].z;
+    float overPressure = oldPressure + (pressure-oldPressure)*overRelaxFactor;
+    Gas[coord] = float3(Gas[coord].xy, overPressure);
+}
+</code></pre> <p>Now I have a smoke simulation:</p> <figure> <video src="/assets/video/smoke.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""></video> </figure> <p>Then I have to add the smoke simulation to the previous demo, let water and solid interact with the smoke. This can easily be done by integrating the SDF map and the water density map we generated earlier into the smoke simulation and use it as the boundary map.</p> <pre><code class="language-GLSL">
+#define canFlow(pos) ((BoundaryMap[pos]))
+
+#pragma kernel BuildBoundary
+[numthreads(8,8,1)]
+void BuildBoundary (uint2 id : SV_DispatchThreadID)
+{
+    BoundaryMap[id] = !fluidMap[id] &amp;&amp; pixelsMap[id] &gt; 0;
+    if (BoundaryMap[id] ==0)
+        SmokeMap[id] = 0;
+}
+
+#pragma kernel SetSmoke
+[numthreads(8,8,1)]
+void SetSmoke (uint2 id : SV_DispatchThreadID)
+{
+    int2 coord = (int2)id;
+    int l = canFlow(coord+left);
+    int r = canFlow(coord+right);
+    int u = canFlow(coord+up);
+    int d = canFlow(coord+down);
+    int smoke = distance(id, smokePos) &lt;= smokeRadius ? 1 : 0;
+    if (smoke &amp;&amp; l&amp;r&amp;u&amp;d)
+    {
+        Gas[id] += float3(0, 1.5, 0);
+        SmokeMap[id] = smokeColor*2;
+    }
+    else
+    {
+        Gas[id] *= float3(0.99,0.99,1);
+        SmokeMap[id] *= 0.99;
+    }
+}
+
+</code></pre> <p>When advecting smoke and velocity, the code checks if it’s outside of the boundary.</p> <p>After this, I have a basic system simulating water, smoke, powder and solid in the same area:</p> <figure> <video src="/assets/video/final_result.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""></video> </figure> <p>The system still has much more to improve, and I still want to add a lot of features such as rigidbody interaction and chemical reactions. Maybe I can even extend it to 3D. The source code is available on <a href="https://github.com/miradilabk/2DPixelPhysics" rel="external nofollow noopener" target="_blank">Github</a></p> <p>I started without knowing anything about fluid simulation or compute shaders. What a journey! Thanks for reading!</p> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Muradil Ablikim. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-blog",
+          title: "blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-projects",
+          title: "projects",
+          description: "A growing collection of your cool projects.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "post-simulating-fluid-smoke-and-sand-simutaneously-on-the-gpu",
+        
+          title: "Simulating fluid, smoke, and sand simutaneously on the GPU",
+        
+        description: "2D pixel physics simulation",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/Pixel-Physics/";
+          
+        },
+      },{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/assets/pdf/example_pdf.pdf", "_blank");
+        },
+      },{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%79%6F%75@%65%78%61%6D%70%6C%65.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-inspire',
+        title: 'Inspire HEP',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://inspirehep.net/authors/1010907", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=qc6CJjYAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.alberteinstein.com/", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

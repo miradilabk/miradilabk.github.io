@@ -1,12 +1,300 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://miradilabk.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://miradilabk.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2026-06-19T21:57:28+00:00</updated><id>https://miradilabk.github.io/feed.xml</id><title type="html">Muradil</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">Google Gemini updates: Flash 1.5, Gemma 2 and Project Astra</title><link href="https://miradilabk.github.io/blog/2024/google-gemini-updates-flash-15-gemma-2-and-project-astra/" rel="alternate" type="text/html" title="Google Gemini updates: Flash 1.5, Gemma 2 and Project Astra"/><published>2024-05-14T00:00:00+00:00</published><updated>2024-05-14T00:00:00+00:00</updated><id>https://miradilabk.github.io/blog/2024/google-gemini-updates-flash-15-gemma-2-and-project-astra</id><content type="html" xml:base="https://miradilabk.github.io/blog/2024/google-gemini-updates-flash-15-gemma-2-and-project-astra/"><![CDATA[<p>Learn more:Learn more:Learn more:Learn more:Learn more:Learn more:Learn more:Learn more:Learn more:May 14, 2024 We’re introducing a series of updates across the Gemini family of models, including the new 1.5 Flash, our lightweight model for speed and efficiency, and Project Astra, our vision for the future of AI assistants. In December, we launched our first natively multimodal model Gemini 1.0 in three sizes: Ultra, Pro and Nano. Just a few months later we released 1.5 Pro, with enhanced performance and a breakthrough long context window of 1 million tokens.Developers and enterprise customers have been putting 1.5 Pro to use in incredible ways and finding its long context window, multimodal reasoning capabilities and impressive overall performance incredibly useful.We know from user feedback that some applications need lower latency and a lower cost to serve. This inspired us to keep innovating, so today, we’re introducing Gemini 1.5 Flash: a model that’s lighter-weight than 1.5 Pro, and designed to be fast and efficient to serve at scale.Both 1.5 Pro and 1.5 Flash are available in public preview with a 1 million token context window in Google AI Studio and Vertex AI. And now, 1.5 Pro is also available with a 2 million token context window via waitlist to developers using the API and to Google Cloud customers.We’re also introducing updates across the Gemini family of models, announcing our next generation of open models, Gemma 2, and sharing progress on the future of AI assistants, with Project Astra.Context lengths of leading foundation models compared with Gemini 1.5’s 2 million token capability1.5 Flash is the newest addition to the Gemini model family and the fastest Gemini model served in the API. It’s optimized for high-volume, high-frequency tasks at scale, is more cost-efficient to serve and features our breakthrough long context window.While it’s a lighter weight model than 1.5 Pro, it’s highly capable of multimodal reasoning across vast amounts of information and delivers impressive quality for its size.The new Gemini 1.5 Flash model is optimized for speed and efficiency, is highly capable of multimodal reasoning and features our breakthrough long context window.1.5 Flash excels at summarization, chat applications, image and video captioning, data extraction from long documents and tables, and more. This is because it’s been trained by 1.5 Pro through a process called “distillation,” where the most essential knowledge and skills from a larger model are transferred to a smaller, more efficient model.Read more about 1.5 Flash in our updated Gemini 1.5 technical report, on the Gemini technology page, and learn about 1.5 Flash’s availability and pricing.Over the last few months, we’ve significantly improved 1.5 Pro, our best model for general performance across a wide range of tasks.Beyond extending its context window to 2 million tokens, we’ve enhanced its code generation, logical reasoning and planning, multi-turn conversation, and audio and image understanding through data and algorithmic advances. We see strong improvements on public and internal benchmarks for each of these tasks.1.5 Pro can now follow increasingly complex and nuanced instructions, including ones that specify product-level behavior involving role, format and style. We’ve improved control over the model’s responses for specific use cases, like crafting the persona and response style of a chat agent or automating workflows through multiple function calls. And we’ve enabled users to steer model behavior by setting system instructions.We added audio understanding in the Gemini API and Google AI Studio, so 1.5 Pro can now reason across image and audio for videos uploaded in Google AI Studio. And we’re now integrating 1.5 Pro into Google products, including Gemini Advanced and in Workspace apps.Read more about 1.5 Pro in our updated Gemini 1.5 technical report and on the Gemini technology page.Gemini Nano is expanding beyond text-only inputs to include images as well. Starting with Pixel, applications using Gemini Nano with Multimodality will be able to understand the world the way people do — not just through text, but also through sight, sound and spoken language.Read more about Gemini 1.0 Nano on Android.Today, we’re also sharing a series of updates to Gemma, our family of open models built from the same research and technology used to create the Gemini models.We’re announcing Gemma 2, our next generation of open models for responsible AI innovation. Gemma 2 has a new architecture designed for breakthrough performance and efficiency, and will be available in new sizes.The Gemma family is also expanding with PaliGemma, our first vision-language model inspired by PaLI-3. And we’ve upgraded our Responsible Generative AI Toolkit with LLM Comparator for evaluating the quality of model responses.Read more on the Developer blog.As part of Google DeepMind’s mission to build AI responsibly to benefit humanity, we’ve always wanted to develop universal AI agents that can be helpful in everyday life. That’s why today, we’re sharing our progress in building the future of AI assistants with Project Astra (advanced seeing and talking responsive agent).To be truly useful, an agent needs to understand and respond to the complex and dynamic world just like people do — and take in and remember what it sees and hears to understand context and take action. It also needs to be proactive, teachable and personal, so users can talk to it naturally and without lag or delay.While we’ve made incredible progress developing AI systems that can understand multimodal information, getting response time down to something conversational is a difficult engineering challenge. Over the past few years, we’ve been working to improve how our models perceive, reason and converse to make the pace and quality of interaction feel more natural.Building on Gemini, we’ve developed prototype agents that can process information faster by continuously encoding video frames, combining the video and speech input into a timeline of events, and caching this information for efficient recall.By leveraging our leading speech models, we also enhanced how they sound, giving the agents a wider range of intonations. These agents can better understand the context they’re being used in, and respond quickly, in conversation.With technology like this, it’s easy to envision a future where people could have an expert AI assistant by their side, through a phone or glasses. And some of these capabilities are coming to Google products, like the Gemini app and web experience, later this year.We’ve made incredible progress so far with our family of Gemini models, and we’re always striving to advance the state-of-the-art even further. By investing in a relentless production line of innovation, we’re able to explore new ideas at the frontier, while also unlocking the possibility of new and exciting Gemini use cases.Learn more about Gemini and its capabilities. Your information will be used in accordance with Google’s privacy policy.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      Done. Just one step more.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://miradilabk.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://miradilabk.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2026-06-19T22:09:21+00:00</updated><id>https://miradilabk.github.io/feed.xml</id><title type="html">Muradil</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">Simulating fluid, smoke, and sand simutaneously on the GPU</title><link href="https://miradilabk.github.io/blog/2026/Pixel-Physics/" rel="alternate" type="text/html" title="Simulating fluid, smoke, and sand simutaneously on the GPU"/><published>2026-06-19T09:02:00+00:00</published><updated>2026-06-19T09:02:00+00:00</updated><id>https://miradilabk.github.io/blog/2026/Pixel%20Physics</id><content type="html" xml:base="https://miradilabk.github.io/blog/2026/Pixel-Physics/"><![CDATA[<h4 id="simple-noita-like-demo">Simple Noita-like Demo</h4> <p>I really enjoyed playing <a href="https://store.steampowered.com/app/881100/Noita/">Noita</a> and was really impressed by the 2d pixel physics simulation in the game. I watched the <a href="https://www.youtube.com/watch?v=prXuyMCgbTc">GDC talk</a> about the tech behind Noita and made a small demo in Unity replicating the pixel physics part.</p> <figure> <video src="/assets/video/pixel_physics_demo.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""/> </figure> <p>This demo runs on CPU and it’s pretty simple. In fixed update we loop over every pixel and check which type of pixel it is and try to move it in every direction it can. For example, sand pixel can fall directly downwards(0,-1), or bottom left(-1, -1), bottom right(1, -1). Water can also move horizontally (-1,0), (1,0). Gas can move up instead so it’s the reversed version of water.</p> <p>Part of the code in FixedUpdate</p> <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="n">height</span><span class="p">-</span><span class="m">1</span><span class="p">;</span> <span class="n">j</span> <span class="p">&gt;=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span><span class="p">--)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">dir</span> <span class="p">=</span> <span class="n">Random</span><span class="p">.</span><span class="nf">Range</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">dir</span><span class="p">==</span><span class="m">0</span><span class="p">?</span><span class="m">0</span><span class="p">:</span><span class="n">width</span><span class="p">-</span><span class="m">1</span><span class="p">;</span> <span class="n">dir</span><span class="p">==</span> <span class="m">0</span><span class="p">?</span><span class="n">i</span> <span class="p">&lt;</span> <span class="n">width</span> <span class="p">:</span> <span class="n">i</span> <span class="p">&gt;=</span> <span class="m">0</span><span class="p">;)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_buffer</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">].</span><span class="n">isParticle</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">dir</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span> <span class="n">i</span><span class="p">++;</span>
+            <span class="k">else</span> <span class="n">i</span><span class="p">--;</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">short</span> <span class="n">elementId</span> <span class="p">=</span> <span class="n">_buffer</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">].</span><span class="n">elementId</span><span class="p">;</span>
+        <span class="kt">var</span> <span class="n">element</span> <span class="p">=</span> <span class="n">elements</span><span class="p">[</span><span class="n">elementId</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">elementId</span> <span class="p">!=</span> <span class="m">0</span> <span class="p">&amp;&amp;</span> <span class="n">elementId</span> <span class="p">&lt;</span> <span class="n">elements</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">k</span> <span class="p">&lt;</span> <span class="n">element</span><span class="p">.</span><span class="n">directions</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">k</span><span class="p">++)</span>
+            <span class="p">{</span>
+                <span class="n">Vector2Int</span> <span class="n">direction</span> <span class="p">=</span> <span class="n">element</span><span class="p">.</span><span class="n">directions</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+                <span class="kt">int</span> <span class="n">x</span> <span class="p">=</span> <span class="n">i</span> <span class="p">+</span> <span class="n">direction</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+                <span class="kt">int</span> <span class="n">y</span> <span class="p">=</span> <span class="n">j</span> <span class="p">+</span> <span class="n">direction</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(!</span><span class="nf">IsInBounds</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="k">continue</span><span class="p">;</span>
+                <span class="kt">var</span> <span class="n">neighborElement</span> <span class="p">=</span> <span class="n">elements</span><span class="p">[</span><span class="n">_buffer</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">].</span><span class="n">elementId</span><span class="p">];</span>
+                <span class="kt">short</span> <span class="n">res1</span><span class="p">=</span><span class="m">0</span><span class="p">,</span> <span class="n">res2</span><span class="p">=</span><span class="m">0</span><span class="p">;</span>
+                <span class="kt">var</span> <span class="n">hasReaction</span> <span class="p">=</span>
+                <span class="n">PixelChemistryController</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="nf">CheckReaction</span><span class="p">(</span><span class="n">elementId</span><span class="p">,</span> <span class="n">_buffer</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">].</span><span class="n">elementId</span><span class="p">,</span> 
+                    <span class="k">ref</span> <span class="n">res1</span><span class="p">,</span> <span class="k">ref</span> <span class="n">res2</span><span class="p">);</span>
+                
+                <span class="k">if</span> <span class="p">(</span><span class="n">hasReaction</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nf">ChangePixel</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">res1</span><span class="p">);</span>
+                    <span class="nf">ChangePixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">res2</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+                
+                <span class="k">if</span> <span class="p">(</span><span class="n">neighborElement</span><span class="p">.</span><span class="n">type</span> <span class="p">&lt;</span> <span class="n">elements</span><span class="p">[</span><span class="n">elementId</span><span class="p">].</span><span class="n">type</span> <span class="p">&amp;&amp;</span> <span class="n">Random</span><span class="p">.</span><span class="k">value</span><span class="p">*</span><span class="m">100</span> <span class="p">&lt;</span> <span class="n">element</span><span class="p">.</span><span class="n">movePossibility</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nf">SwapPixel</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">Random</span><span class="p">.</span><span class="k">value</span> <span class="p">&lt;</span> <span class="m">0.1f</span> <span class="p">&amp;&amp;</span> <span class="n">neighborElement</span><span class="p">.</span><span class="n">type</span> <span class="p">==</span> <span class="n">ElementType</span><span class="p">.</span><span class="n">Liquid</span> <span class="p">&amp;&amp;</span>
+                    <span class="n">elements</span><span class="p">[</span><span class="n">elementId</span><span class="p">].</span><span class="n">type</span> <span class="p">==</span> <span class="n">ElementType</span><span class="p">.</span><span class="n">Liquid</span> <span class="p">&amp;&amp;</span> <span class="n">Random</span><span class="p">.</span><span class="k">value</span><span class="p">*</span><span class="m">100</span> <span class="p">&lt;</span> <span class="n">element</span><span class="p">.</span><span class="n">movePossibility</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nf">SwapPixel</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">dir</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span> <span class="n">i</span><span class="p">++;</span>
+        <span class="k">else</span> <span class="n">i</span><span class="p">--;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div> <h4 id="fluid-simulation">Fluid Simulation</h4> <p>While this is cool, I couldn’t help but notice the pixel movement isn’t very realistic. Especially for water and gas, it’s not flowing or diffusing. So I started digging around to see if there’s a way to simulate fluid more accurately. And indeed there is! I found <a href="https://www.youtube.com/watch?v=rSKMYc1CQHE">this tutorial</a> is really good for beginners like me and I followed it step by step and made this:</p> <figure> <video src="/assets/video/fluid_simulation.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""/> </figure> <p>This fluid simulation runs on the GPU with compute shader. The main logic is no water particle cannot be too close to each other, but also has an attraction force to keep the water shape. To achieve that we need to calculate the density of the water particles, then we can calculate the pressure and the force to determine which direction the particle should go.</p> <p>If we do this by brute force, it will be very slow calculating particle’s density by looping over all the particles. Instead we can only check surrounding particles by partitioning the space into grids. Then we can only check the particles in the neighboring grids. We need spatial hashing to assign a grid index by particle position. Then we have to sort the particle indices by hashed grid index so that we can loop over all particles in any grid. Because we’re on the GPU so we have to use the <a href="https://quinstonpimenta.medium.com/bitonic-merge-sort-explanation-and-code-tutorial-5688bd3507fb">Bitonic Merge Sort</a> which is optimized for parallel processing.</p> <pre><code class="language-GLSL">float2 CalculateDensity(float2 pos)
+{
+    float density = 0;
+    float nearDensity = 0;
+    for (int i = -1; i &lt;= 1; i++)
+        for (int j = -1; j &lt;= 1; j++)
+        {
+            float x = pos.x + smoothRadius * i;
+            float y = pos.y + smoothRadius * j;
+            uint thisHash = GetHashByPos(x,y);
+            for (uint k = startIndices[thisHash]; k &lt; particleCnt &amp;&amp; spacialHash[spacialHashKeys[k]].x == thisHash; k++)
+            {
+                uint ii = spacialHash[spacialHashKeys[k]].y;
+                if (isLiquidHidden[ii]) continue;
+                float2 pos2 = predictions[ii];
+                float dst = distance(pos, pos2);
+                float w = SmoothKernel(dst);
+                density += w;
+                nearDensity += SmoothKernelSpiky(dst);
+            }
+        }
+    return float2(density, nearDensity);
+}
+</code></pre> <p>Now I have a pretty good water simulation. But I have to integrate this into the previous pixel physics demo. There are a couple of problems I have to solve:</p> <ol> <li>fluid simulation is position-based particles, but I want a pixel-based water simulation.</li> <li>How to make water particles collide with sand or other solid pixels? The previous demo runs on the CPU, which is pretty slow and not easy to make it interact with compute shader based fluid simulation.</li> </ol> <hr/> <p>For the first problem, I added an extra kernel to the compute shader that can sample the density level for each pixel, then sample the density field into a texture, if the density for current pixel is higher than a certain threshold, this pixel is water pixel.</p> <figure> <video src="/assets/video/pixel_water.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""/> </figure> <p>You may noticed that the water has a foam effect applied, that’s because I calculated a velocity-based foam factor in the compute shader as well. Basically for each pixel, I find the nearest particle to this pixel, then calculate how different the velocity is compared to other nearby particles. The bigger the velocity difference, the stronger the foam.</p> <p>Here’s the compute shader kernel for density sampling and foam calculation.</p> <pre><code class="language-GLSL">#pragma kernel SampleDensityMap
+[numthreads(8,8,1)]
+void SampleDensityMap (uint2 id: SV_DispatchThreadID)
+{
+    float2 pos = (float2)id*boundaryParticleDist;
+    if (pos.x &gt; width || pos.y &gt; height) return;
+    float2 uv = pos/float2(width,height);
+    int2 pixel = uv*boundaryTextureSize;
     
-      Check your inbox to confirm your subscription.
-    You are already subscribed to our newsletter.
-    You can also subscribe with a
-    different email address
     
-    .
+    float density = 0;
+    uint nearestParticle = 0;
+    float nearestDist = 100000;
+    for (int i = -1; i &lt;= 1; i++)
+        for (int j = -1; j &lt;= 1; j++)
+        {
+            float x = pos.x + smoothRadius * i;
+            float y = pos.y + smoothRadius * j;
+            uint thisHash = GetHashByPos(x,y);
+            for (uint k = startIndices[thisHash]; k &lt; particleCnt &amp;&amp; spacialHash[spacialHashKeys[k]].x == thisHash; k++)
+            {
+                uint ii = spacialHash[spacialHashKeys[k]].y;
+                if (isLiquidHidden[ii]) continue;
+                float2 pos2 = predictions[ii];
+                float dst = distance(pos, pos2);
+                if (dst &lt; nearestDist)
+                {
+                    nearestDist = dst;
+                    nearestParticle = ii;
+                }
+                float w = SmoothKernel(dst);
+                density += w;
+            }
+        }
+    float densityRatio = density/targetDensity;
+    if (densityRatio &gt;= 0.7)
+    {
+        float2 nearestPos = predictions[nearestParticle];
+        float2 velDif = 0;
+        //velocity diff
+        for (int i = -1; i &lt;= 1; i++)
+            for (int j = -1; j &lt;= 1; j++)
+            {
+                float x = pos.x + smoothRadius * i;
+                float y = pos.y + smoothRadius * j;
+                uint thisHash = GetHashByPos(x,y);
+                for (uint k = startIndices[thisHash]; k &lt; particleCnt &amp;&amp; spacialHash[spacialHashKeys[k]].x == thisHash; k++)
+                {
+                    uint ii = spacialHash[spacialHashKeys[k]].y;
+                    if (isLiquidHidden[ii]) continue;
+                    float2 pos2 = predictions[ii];
+                    float dst = distance(nearestPos, pos2);
+                    float w = SmoothKernel(dst);
+                    if (isnan(velocities[ii].x)||isnan(velocities[ii].y)) continue;
+                    velDif += abs(velocities[nearestParticle]-velocities[ii])*w;
+                }
+            }
+        float foamRatio = min(1,(velDif.x+velDif.y)/foamVelocity);
+        foamRatio *= foamRatio;
+        fluidDensityMap[pixel]=densityRatio &lt; 0.7 ? 0 : lerp(float4(0.05,0.53,0.8,.1), float4(1,1,1,1), foamRatio);
+    }
+    else
+    {
+        fluidDensityMap[pixel] = float4(0,0,0,0);
+    }
+}
+</code></pre> <hr/> <p>For the second problem, I converted the pixel physics script to run on compute shader. It was pretty straight forward, the kernel code:</p> <pre><code class="language-GLSL">#pragma kernel SimulateStep
+[numthreads(8,8,1)]
+void SimulateStep (uint2 id : SV_DispatchThreadID)
+{
+    /*if (id.x == 0 || id.x &gt;= size.x-1 || id.y == 0 ||id.y == size.y-1)
+    {
+        Pixels[id] = float4(1,1,1,-1);
+    }*/
+    if (distance(id, drawingPixelPos) &lt;= 5)
+    {
+        Pixels[id] = float4(pixelToDraw.rgb*(1-rand_1_05((float2)id/float2(320,180))*0.5),pixelToDraw.a);
+    }
+    if (id.y == 0 || Pixels[id].a == 0) return;
+    bool isSand = Pixels[id].a &gt; 0;
+    if (isSand)
+    {
+        if (Pixels[id+int2(0,-1)].a == 0)
+        {
+            Pixels[id+int2(0,-1)] = Pixels[id];
+            Pixels[id] = float4(0,0,0,0);
+        }
+        else
+        {
+            if (rand_1_05(id/float2(320,180)) &lt;= 0.5)
+            {
+                if (id.x &gt;0 &amp;&amp; Pixels[id+int2(-1,-1)].a == 0)
+                {
+                    Pixels[id+int2(-1,-1)] = Pixels[id];
+                    Pixels[id] = float4(0,0,0,0);
+                }
+                else if (id.x &lt; 319 &amp;&amp; Pixels[id+int2(1,-1)].a == 0)
+                {
+                    Pixels[id+int2(1,-1)] = Pixels[id];
+                    Pixels[id] = float4(0,0,0,0);
+                }
+            }
+            else
+            {
+                if (id.x &lt; 319 &amp;&amp; Pixels[id+int2(1,-1)].a == 0)
+                {
+                    Pixels[id+int2(1,-1)] = Pixels[id];
+                    Pixels[id] = float4(0,0,0,0);
+                }
+                else if (id.x &gt; 0 &amp;&amp; Pixels[id+int2(-1,-1)].a == 0)
+                {
+                    Pixels[id+int2(-1,-1)] = Pixels[id];
+                    Pixels[id] = float4(0,0,0,0);
+                }
+            }
+        }
+    }
+}
+</code></pre> <p>Currently it has two types of pixel: powder and solid, determined by the alpha value of the pixel.</p> <p>Next step is to tell the fluid simulation the boundary map. This map should contain the position and the normal vector of the boundary so that when a water particle hits a boundary, it can bounce to the right direction according to the normal vector. The map should also be updated in realtime so when player interacts with it the map will change.</p> <p>For this I made a SDF(signed distance field) generator that runs on the GPU to generate boundary map based on the pixel physics map. This map contains the shortest distance to the nearest boundary surface. So on the boundary surface pixel, the value is 0, negative inside the boundary and positive outside the boundary. With this distance information, we can calculate the normal of the boundary at any given position.</p> <pre><code class="language-GLSL">float2 SDFGradient(float2 uv)
+{
+    const float eps = 0.003125;
+    float dx = boundaryTexture.SampleLevel(sampler_LinearClamp, float2(uv.x+eps,uv.y),0).r -
+        boundaryTexture.SampleLevel(sampler_LinearClamp, float2(uv.x-eps,uv.y),0).r;
+    float dy = boundaryTexture.SampleLevel(sampler_LinearClamp, float2(uv.x,uv.y+eps),0).r -
+        boundaryTexture.SampleLevel(sampler_LinearClamp, float2(uv.x,uv.y-eps),0).r;
+    return normalize(float2(dx,dy));
+}
+</code></pre> <p>The above code showes how to get the normal vector by signed distance field, it samples the SDF texture 4 times on four neighbor pixels, then calculate the distance difference and that gives us the normal vector. Then we can use this normal vector to resolve the collision between water particle and the boundary.</p> <pre><code class="language-GLSL">float2 size = float2(width, height);
+float2 uv = pos/size;
+//in a wall
+float dist = boundaryTexture.SampleLeve(sampler_LinearClamp, uv, 0).r - 0.003125;
+if (dist &lt; 0)
+{
+    float2 normal = SDFGradient(uv);
+    pos -= normal * dist*size;
     
-  Let’s stay in touch. Get the latest news from Google in your inbox.
-          Follow Us
-</code></pre></div></div>]]></content><author><name></name></author><category term="external-posts"/><category term="google"/><summary type="html"><![CDATA[We’re sharing updates across our Gemini family of models and a glimpse of Project Astra, our vision for the future of AI assistants.]]></summary></entry><entry><title type="html">Displaying External Posts on Your al-folio Blog</title><link href="https://miradilabk.github.io/blog/2022/displaying-external-posts-on-your-al-folio-blog/" rel="alternate" type="text/html" title="Displaying External Posts on Your al-folio Blog"/><published>2022-04-23T23:20:09+00:00</published><updated>2022-04-23T23:20:09+00:00</updated><id>https://miradilabk.github.io/blog/2022/displaying-external-posts-on-your-al-folio-blog</id><content type="html" xml:base="https://miradilabk.github.io/blog/2022/displaying-external-posts-on-your-al-folio-blog/"><![CDATA[<h3>External Posts on Your al-folio Blog</h3> <p>If you prefer publishing blog posts on medium.com or other external sources, starting version v0.5.0, <a href="https://github.com/alshedivat/al-folio">al-folio</a> lets you to display your external posts in the blog feed of your website! 🎉🎉</p> <p>Configuring external sources of super simple. After upgrading to v0.5.0, just add the following section to your _config.yml:</p> <pre>external_sources:<br />  - name: medium.com  # name of the source (arbitrary string)<br />    rss_url: <a href="https://medium.com/@al-folio/feed">https://medium.com/@&lt;your-medium-username&gt;/feed</a></pre> <p>The example above adds your medium.com blog post feed as an external source. But you can add arbitrary RSS feeds as sources.</p> <p>Any questions or suggestions? 👉 Start <a href="https://github.com/alshedivat/al-folio/discussions">a discussion on GitHub</a>!</p> <p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=b60a1d241a0a" width="1" height="1" alt=""/></p>]]></content><author><name></name></author><category term="jekyll"/><category term="jekyll-themes"/><category term="personal-blog"/><category term="blog"/><category term="academic"/><category term="medium"/></entry></feed>
+    positions[i] -= normal * dist*size;
+    float2 vn = dot(velocities[i], normal) * normal;
+    float2 vt = velocities[i] - vn;
+    velocities[i] -= vn * (1.1f);
+    velocities[i] -= vt * 0.2f;
+    
+}
+</code></pre> <p>I used <a href="https://en.wikipedia.org/wiki/Jump_flooding_algorithm">Jump Flooding Algorithm</a> to generate the SDF.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/SDF-480.webp 480w,/assets/img/SDF-800.webp 800w,/assets/img/SDF-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/assets/img/SDF.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> <pre><code class="language-GLSL">#pragma kernel JFAPass
+[numthreads(8,8,1)]
+void JFAPass(uint3 id : SV_DispatchThreadID) {
+    float2 best = Result[id.xy];
+    float2 pos = (float2)id.xy/size;
+    float bestDist = (best.x &lt; 0) ? 1e20 : distance(best, pos);
+
+    for(int ox=-1; ox&lt;=1; ox++) {
+        for(int oy=-1; oy&lt;=1; oy++) {
+            int2 n = id.xy + int2(ox, oy) * stepSize;
+            if (n.x &lt; 0 || n.y &lt; 0 || n.x &gt;= size.x || n.y &gt;= size.y) continue;
+
+            float2 candidate = Result[n];
+            if (candidate.x &lt; 0) continue;
+
+            float d = distance(candidate, pos);
+            if(d &lt; bestDist) {
+                bestDist = d;
+                best = candidate;
+            }
+        }
+    }
+    Result[id.xy] = best;
+}
+</code></pre> <p>Now we have a fluid&amp;solid&amp;powder simulation!</p> <figure> <video src="/assets/video/collision.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""/> </figure> <h4 id="smoke-simulation">Smoke Simulation</h4> <p>Now that we have water and powder, there’s one thing still missing: Smoke. After reading a bunch of papers that I couldn’t fully understand and some really good tutorials. I found that smoke simulation is a type of fluid simulation, but using a very different technique than water simulation.</p> <p>To simulate smoke, I found the most common approach is using Eulerian Fluid Simulation which is taught in <a href="https://www.youtube.com/watch?v=iKAVRgIrUOU">this great video</a> and <a href="https://www.youtube.com/watch?v=Q78wvrQ9xsU&amp;t=1856s">this video</a>, and <a href="https://shahriyarshahrabi.medium.com/gentle-introduction-to-fluid-simulation-for-programmers-and-technical-artists-7c0045c40bac">this blog</a>.</p> <p>This method basically divides the area into a grid, and calculate how dense the smoke is in each grid. Then calculate a divergence value(amount of smoke going in and out of this block) and pressure value based on the density of the adjacent blocks, then try to make the amount of smoke going in and out as equal as possible so that the smoke is not compressed anywhere. It is like solving a set NxM equations with NxM variables. To solve this massive equation as fast as possible, we can use the the parallel processing power of the GPU and apply the <a href="https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method">Gauss-Seidel Method</a> to approximate the solution since it doesn’t have to be 100% accurate for games.</p> <p>However the Gauss-Seidel Method cannot be directly applied on the GPU side, because the neighboring blocks are being updated at the same time when the values are being used, so I had to apply the Red-Black Gauss-Seidel Method which was mentioned in the <a href="https://www.youtube.com/watch?v=Q78wvrQ9xsU&amp;t=1856s">second video</a>. The Gauss-Seidel kernel code:</p> <pre><code class="language-GLSL">#pragma kernel SolveIncompressibility
+[numthreads(8,8,1)]
+void SolveIncompressibility (uint2 id : SV_DispatchThreadID)
+{
+    uint oddOrEven = id.y%2;
+    int offset = (int)((redOrBlack+oddOrEven)%2);
+    int2 coord = int2((int)(id.x)*2+offset, (int)id.y);
+    if (!canFlow(coord)) return;
+    int l = canFlow(coord+left);
+    int r = canFlow(coord+right);
+    int u = canFlow(coord+up);
+    int d = canFlow(coord+down);
+    int s = l+r+u+d;
+    if (s == 0) return;
+    float divergence = Gas[coord+right].x*r-Gas[coord].x +
+        Gas[coord+up].y*u-Gas[coord].y;
+    float pressure = ((Gas[coord+right].z*r+Gas[coord+left].z*l +
+        Gas[coord+up].z*u+Gas[coord+down].z*d)- divergence)/s;
+    float oldPressure = Gas[coord].z;
+    float overPressure = oldPressure + (pressure-oldPressure)*overRelaxFactor;
+    Gas[coord] = float3(Gas[coord].xy, overPressure);
+}
+</code></pre> <p>Now I have a smoke simulation:</p> <figure> <video src="/assets/video/smoke.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""/> </figure> <p>Then I have to add the smoke simulation to the previous demo, let water and solid interact with the smoke. This can easily be done by integrating the SDF map and the water density map we generated earlier into the smoke simulation and use it as the boundary map.</p> <pre><code class="language-GLSL">
+#define canFlow(pos) ((BoundaryMap[pos]))
+
+#pragma kernel BuildBoundary
+[numthreads(8,8,1)]
+void BuildBoundary (uint2 id : SV_DispatchThreadID)
+{
+    BoundaryMap[id] = !fluidMap[id] &amp;&amp; pixelsMap[id] &gt; 0;
+    if (BoundaryMap[id] ==0)
+        SmokeMap[id] = 0;
+}
+
+#pragma kernel SetSmoke
+[numthreads(8,8,1)]
+void SetSmoke (uint2 id : SV_DispatchThreadID)
+{
+    int2 coord = (int2)id;
+    int l = canFlow(coord+left);
+    int r = canFlow(coord+right);
+    int u = canFlow(coord+up);
+    int d = canFlow(coord+down);
+    int smoke = distance(id, smokePos) &lt;= smokeRadius ? 1 : 0;
+    if (smoke &amp;&amp; l&amp;r&amp;u&amp;d)
+    {
+        Gas[id] += float3(0, 1.5, 0);
+        SmokeMap[id] = smokeColor*2;
+    }
+    else
+    {
+        Gas[id] *= float3(0.99,0.99,1);
+        SmokeMap[id] *= 0.99;
+    }
+}
+
+</code></pre> <p>When advecting smoke and velocity, the code checks if it’s outside of the boundary.</p> <p>After this, I have a basic system simulating water, smoke, powder and solid in the same area:</p> <figure> <video src="/assets/video/final_result.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""/> </figure> <p>The system still has much more to improve, and I still want to add a lot of features such as rigidbody interaction and chemical reactions. Maybe I can even extend it to 3D. The source code is available on <a href="https://github.com/miradilabk/2DPixelPhysics">Github</a></p> <p>I started without knowing anything about fluid simulation or compute shaders. What a journey! Thanks for reading!</p>]]></content><author><name></name></author><category term="devlog"/><category term="physics,"/><category term="2D"/><summary type="html"><![CDATA[2D pixel physics simulation]]></summary></entry></feed>
