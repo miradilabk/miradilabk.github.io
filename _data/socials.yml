@@ -9,7 +9,7 @@ email: mradlabk@outlook.com # your email address
 # wechat_qr: # filename of your wechat qr-code saved as an image (e.g., wechat-qr.png if saved to assets/img/wechat-qr.png)
 # whatsapp_number: # your WhatsApp number (full phone number in international format. Omit any zeroes, brackets, or dashes when adding the phone number in international format.)
 custom_social: # can be any name here other than the ones already defined in the jekyll-socials plugin
-  logo: https://static.itch.io/images/itchio-textless-black.svg # can be png, svg, jpg
+  logo: https://static.itch.io/images/itchio-textless-white.svg # can be png, svg, jpg
   title: Itch
   url: https://miradil.itch.io/
-linkedin_username: Muradil Ablikim
+linkedin_username: muradil-ablikim

@@ -9,6 +9,8 @@ thumbnail: assets/img/post1Thumbnail.png
 ---
 
 #### Simple Noita-like Demo
+{% include figure.liquid loading="eager" path="assets/img/post1Thumbnail.png" class="img-fluid rounded z-depth-1" %}
+
 I really enjoyed playing [Noita](https://store.steampowered.com/app/881100/Noita/) and was really impressed by the 2d pixel physics simulation in the game. I watched the [GDC talk](https://www.youtube.com/watch?v=prXuyMCgbTc) about the tech behind Noita and made a small demo in Unity replicating the pixel physics part.
 
 {% include video.liquid path="assets/video/pixel_physics_demo.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=false%}
