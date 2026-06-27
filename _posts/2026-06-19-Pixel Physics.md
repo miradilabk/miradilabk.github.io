@@ -5,6 +5,7 @@ date: 2026/06/19 09:02:00
 description: 2D pixel physics simulation
 tags: physics, 2D
 categories: devlog
+thumbnail: assets/img/post1Thumbnail.png
 ---
 
 #### Simple Noita-like Demo
