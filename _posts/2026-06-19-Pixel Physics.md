@@ -11,7 +11,7 @@ thumbnail: assets/img/post1Thumbnail.png
 #### Simple Noita-like Demo
 I really enjoyed playing [Noita](https://store.steampowered.com/app/881100/Noita/) and was really impressed by the 2d pixel physics simulation in the game. I watched the [GDC talk](https://www.youtube.com/watch?v=prXuyMCgbTc) about the tech behind Noita and made a small demo in Unity replicating the pixel physics part.
 
-{% include video.liquid path="assets/video/pixel_physics_demo.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
+{% include video.liquid path="assets/video/pixel_physics_demo.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=false%}
 
 This demo runs on CPU and it's pretty simple. In fixed update we loop over every pixel and check which type of pixel it is and try to move it in every direction it can. For example, sand pixel can fall directly downwards(0,-1), or bottom left(-1, -1), bottom right(1, -1). Water can also move horizontally (-1,0), (1,0). Gas can move up instead so it's the reversed version of water.
 
@@ -75,7 +75,7 @@ for (int j = height-1; j >= 0; j--)
 #### Fluid Simulation
 While this is cool, I couldn't help but notice the pixel movement isn't very realistic. Especially for water and gas, it's not flowing or diffusing. So I started digging around to see if there's a way to simulate fluid more accurately. And indeed there is! I found [this tutorial](https://www.youtube.com/watch?v=rSKMYc1CQHE) is really good for beginners like me and I followed it step by step and made this: 
 
-{% include video.liquid path="assets/video/fluid_simulation.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
+{% include video.liquid path="assets/video/fluid_simulation.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=false%}
 
 This fluid simulation runs on the GPU with compute shader. The main logic is no water particle cannot be too close to each other, but also has an attraction force to keep the water shape. To achieve that we need to calculate the density of the water particles, then we can calculate the pressure and the force to determine which direction the particle should go.
 
@@ -114,7 +114,7 @@ Now I have a pretty good water simulation. But I have to integrate this into the
 <hr>
 For the first problem, I added an extra kernel to the compute shader that can sample the density level for each pixel, then sample the density field into a texture, if the density for current pixel is higher than a certain threshold, this pixel is water pixel.
 
-{% include video.liquid path="assets/video/pixel_water.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
+{% include video.liquid path="assets/video/pixel_water.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=false%}
 
 You may noticed that the water has a foam effect applied, that's because I calculated a velocity-based foam factor in the compute shader as well. Basically for each pixel, I find the nearest particle to this pixel, then calculate how different the velocity is compared to other nearby particles. The bigger the velocity difference, the stronger the foam.
 
@@ -317,7 +317,7 @@ void JFAPass(uint3 id : SV_DispatchThreadID) {
 
 Now we have a fluid&solid&powder simulation!
 
-{% include video.liquid path="assets/video/collision.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
+{% include video.liquid path="assets/video/collision.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=false%}
 
 #### Smoke Simulation
 Now that we have water and powder, there's one thing still missing: Smoke. After reading a bunch of papers that I couldn't fully understand and some really good tutorials. I found that smoke simulation is a type of fluid simulation, but using a very different technique than water simulation.
@@ -354,7 +354,7 @@ void SolveIncompressibility (uint2 id : SV_DispatchThreadID)
 
 Now I have a smoke simulation:
 
-{% include video.liquid path="assets/video/smoke.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
+{% include video.liquid path="assets/video/smoke.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=false%}
 
 Then I have to add the smoke simulation to the previous demo, let water and solid interact with the smoke. This can easily be done by integrating the SDF map and the water density map we generated earlier into the smoke simulation and use it as the boundary map.
 
@@ -399,7 +399,7 @@ When advecting smoke and velocity, the code checks if it's outside of the bounda
 
 After this, I have a basic system simulating water, smoke, powder and solid in the same area:
 
-{% include video.liquid path="assets/video/final_result.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
+{% include video.liquid path="assets/video/final_result.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=false%}
 
 The system still has much more to improve, and I still want to add a lot of features such as rigidbody interaction and chemical reactions. Maybe I can even extend it to 3D. The source code is available on [Github](https://github.com/miradilabk/2DPixelPhysics)
 
