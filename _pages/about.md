@@ -1,7 +1,7 @@
 ---
 layout: about
 title: about
-permalink: /
+permalink: /about
 subtitle: Software Engineer & Game Developer
 
 profile:
