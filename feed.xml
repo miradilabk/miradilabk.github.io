@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://miradilabk.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://miradilabk.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2026-08-09T16:52:24+00:00</updated><id>https://miradilabk.github.io/feed.xml</id><title type="html">Muradil</title><entry><title type="html">Simulating fluid, smoke, and sand simutaneously on the GPU</title><link href="https://miradilabk.github.io/blog/2026/Pixel-Physics/" rel="alternate" type="text/html" title="Simulating fluid, smoke, and sand simutaneously on the GPU"/><published>2026-06-19T09:02:00+00:00</published><updated>2026-06-19T09:02:00+00:00</updated><id>https://miradilabk.github.io/blog/2026/Pixel%20Physics</id><content type="html" xml:base="https://miradilabk.github.io/blog/2026/Pixel-Physics/"><![CDATA[<h4 id="simple-noita-like-demo">Simple Noita-like Demo</h4> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/post1Thumbnail-480.webp 480w,/assets/img/post1Thumbnail-800.webp 800w,/assets/img/post1Thumbnail-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/assets/img/post1Thumbnail.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> <p>I really enjoyed playing <a href="https://store.steampowered.com/app/881100/Noita/">Noita</a> and was really impressed by the 2d pixel physics simulation in the game. I watched the <a href="https://www.youtube.com/watch?v=prXuyMCgbTc">GDC talk</a> about the tech behind Noita and made a small demo in Unity replicating the pixel physics part.</p> <figure> <video src="/assets/video/pixel_physics_demo.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" controls=""/> </figure> <p>This demo runs on CPU and it’s pretty simple. In fixed update we loop over every pixel and check which type of pixel it is and try to move it in every direction it can. For example, sand pixel can fall directly downwards(0,-1), or bottom left(-1, -1), bottom right(1, -1). Water can also move horizontally (-1,0), (1,0). Gas can move up instead so it’s the reversed version of water.</p> <p>Part of the code in FixedUpdate</p> <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="n">height</span><span class="p">-</span><span class="m">1</span><span class="p">;</span> <span class="n">j</span> <span class="p">&gt;=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span><span class="p">--)</span>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://miradilabk.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://miradilabk.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2026-10-23T01:56:36+00:00</updated><id>https://miradilabk.github.io/feed.xml</id><title type="html">Muradil</title><entry><title type="html">Simulating fluid, smoke, and sand simutaneously on the GPU</title><link href="https://miradilabk.github.io/blog/2026/Pixel-Physics/" rel="alternate" type="text/html" title="Simulating fluid, smoke, and sand simutaneously on the GPU"/><published>2026-06-19T09:02:00+00:00</published><updated>2026-06-19T09:02:00+00:00</updated><id>https://miradilabk.github.io/blog/2026/Pixel%20Physics</id><content type="html" xml:base="https://miradilabk.github.io/blog/2026/Pixel-Physics/"><![CDATA[<h4 id="simple-noita-like-demo">Simple Noita-like Demo</h4> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/post1Thumbnail-480.webp 480w,/assets/img/post1Thumbnail-800.webp 800w,/assets/img/post1Thumbnail-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/assets/img/post1Thumbnail.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> <p>I really enjoyed playing <a href="https://store.steampowered.com/app/881100/Noita/">Noita</a> and was really impressed by the 2d pixel physics simulation in the game. I watched the <a href="https://www.youtube.com/watch?v=prXuyMCgbTc">GDC talk</a> about the tech behind Noita and made a small demo in Unity replicating the pixel physics part.</p> <figure> <video src="/assets/video/pixel_physics_demo.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" controls=""/> </figure> <p>This demo runs on CPU and it’s pretty simple. In fixed update we loop over every pixel and check which type of pixel it is and try to move it in every direction it can. For example, sand pixel can fall directly downwards(0,-1), or bottom left(-1, -1), bottom right(1, -1). Water can also move horizontally (-1,0), (1,0). Gas can move up instead so it’s the reversed version of water.</p> <p>Part of the code in FixedUpdate</p> <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="n">height</span><span class="p">-</span><span class="m">1</span><span class="p">;</span> <span class="n">j</span> <span class="p">&gt;=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span><span class="p">--)</span>
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">dir</span> <span class="p">=</span> <span class="n">Random</span><span class="p">.</span><span class="nf">Range</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">dir</span><span class="p">==</span><span class="m">0</span><span class="p">?</span><span class="m">0</span><span class="p">:</span><span class="n">width</span><span class="p">-</span><span class="m">1</span><span class="p">;</span> <span class="n">dir</span><span class="p">==</span> <span class="m">0</span><span class="p">?</span><span class="n">i</span> <span class="p">&lt;</span> <span class="n">width</span> <span class="p">:</span> <span class="n">i</span> <span class="p">&gt;=</span> <span class="m">0</span><span class="p">;)</span>
@@ -297,4 +297,115 @@ void SetSmoke (uint2 id : SV_DispatchThreadID)
     }
 }
 
-</code></pre> <p>When advecting smoke and velocity, the code checks if it’s outside of the boundary.</p> <p>After this, I have a basic system simulating water, smoke, powder and solid in the same area:</p> <figure> <video src="/assets/video/final_result.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" controls=""/> </figure> <p>The system still has much more to improve, and I still want to add a lot of features such as rigidbody interaction and chemical reactions. Maybe I can even extend it to 3D. The source code is available on <a href="https://github.com/miradilabk/2DPixelPhysics">Github</a></p> <p>I started without knowing anything about fluid simulation or compute shaders. What a journey! Thanks for reading!</p>]]></content><author><name></name></author><category term="devlog"/><category term="physics,"/><category term="2D"/><summary type="html"><![CDATA[2D pixel physics simulation]]></summary></entry></feed>
+</code></pre> <p>When advecting smoke and velocity, the code checks if it’s outside of the boundary.</p> <p>After this, I have a basic system simulating water, smoke, powder and solid in the same area:</p> <figure> <video src="/assets/video/final_result.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" controls=""/> </figure> <p>The system still has much more to improve, and I still want to add a lot of features such as rigidbody interaction and chemical reactions. Maybe I can even extend it to 3D. The source code is available on <a href="https://github.com/miradilabk/2DPixelPhysics">Github</a></p> <p>I started without knowing anything about fluid simulation or compute shaders. What a journey! Thanks for reading!</p>]]></content><author><name></name></author><category term="devlog"/><category term="physics,"/><category term="2D"/><summary type="html"><![CDATA[2D pixel physics simulation]]></summary></entry><entry><title type="html">Terrain Snow Deformation shader with tessellation and sliding window</title><link href="https://miradilabk.github.io/blog/2026/Interactive-Snow/" rel="alternate" type="text/html" title="Terrain Snow Deformation shader with tessellation and sliding window"/><published>2026-06-19T09:02:00+00:00</published><updated>2026-06-19T09:02:00+00:00</updated><id>https://miradilabk.github.io/blog/2026/Interactive%20Snow</id><content type="html" xml:base="https://miradilabk.github.io/blog/2026/Interactive-Snow/"><![CDATA[<h4 id="snow-deformation">Snow Deformation</h4> <p>I always wondered snows in games were made, so I learned a lot of new materials and made my own version:</p> <figure> <video src="/assets/video/snow.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" controls=""/> </figure> <p>First, I followed <a href="https://minionsart.github.io/tutorials/Posts.html?post=interactive_snow_urp">this cool tutorial</a> made by MinionsArt. And made a basic version of interactive snow. The basic idea is using a top-down camera and capture the trail made by particles and store the result into a render texture. Then in the snow shader, we read the texture by the vertex’s horizontal world position as the uv, and push down the vertices that’s inside a trail. Here’s the result:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/2_1-480.webp 480w,/assets/img/2_1-800.webp 800w,/assets/img/2_1-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/assets/img/2_1.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> <p>Currently the shader does not take height of the object into consideration, so when the player jumps, the trail will still be generated. Also, the exact shape of the object is not captured, so we would have to make a custom particle shape for every object if we want the snow trail to be accurate.</p> <p>To add support for jumping, I changed the particle systems approach to custom render texture shader that accumulates the previous buffer with existing one. <a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@17.0/manual/Custom-Render-Texture-Example.html">Here</a>’s a example of Custom Render Texture Shader Graph. This way we don’t have to rely on particle system to generate the trail.</p> <p>But how do we support jumping or non-flat terrains? We can capture the depth of the objects and compare them with height of the terrain. I changed the camera to be bottom-up so that it captures the objects’ bottom parts depth correctly. Then we get the penetration amount by subtracting the object’s depth value by the terrain’s depth value. The Shader Graph:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/2_2-480.webp 480w,/assets/img/2_2-800.webp 800w,/assets/img/2_2-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/assets/img/2_2.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> <p>Then I started thinking how can I improve the visuals even more. I read <a href="https://www.taylorfrancis.com/chapters/edit/10.1201/b21261-5/deferred-snow-deformation-rise-tomb-raider-anton-kai-michels-peter-sikachev">Deferred Snow Deformation in Rise of the Tomb Raider</a> and they made an evevation around the snow depression to optimize the visuals:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/2_3-480.webp 480w,/assets/img/2_3-800.webp 800w,/assets/img/2_3-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/assets/img/2_3.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> <p>So I did the same, to calculate the elevation around the snow trail, I used a compute shader to calculate the rim of the trail, then blurred the rim a little in another pass.</p> <pre><code class="language-GLSL">#pragma kernel ComputeRimCenter
+[numthreads(8,8,1)]
+void ComputeRimCenter (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x &gt;= size.x || id.y &gt;= size.y)
+    {
+        return;
+    }
+    int2 coord = id.xy;
+    float trail = Depth[coord].r;
+    //there's no trail, detect if it's edge
+    if (trail &lt;= 0)
+    {
+        float2 l = Depth[coord+int2(-elevationRadius,0)].rg;
+        float2 r = Depth[coord+int2(elevationRadius,0)].rg;
+        float2 u = Depth[coord+int2(0,-elevationRadius)].rg;
+        float2 d = Depth[coord+int2(0,elevationRadius)].rg;
+        float2 l1 = Depth[coord+int2(-elevationRadius+2,0)].rg;
+        float2 r1 = Depth[coord+int2(elevationRadius-2,0)].rg;
+        float2 u1 = Depth[coord+int2(0,-elevationRadius+2)].rg;
+        float2 d1 = Depth[coord+int2(0,elevationRadius-2)].rg;
+        
+        //it is edge, mark it and record the depth
+        if (l.x&gt;0&amp;&amp;l1.x&lt;=0 || r.x&gt;0&amp;&amp;r1.x&lt;=0 || u.x&gt;0&amp;&amp;u1.x&lt;=0 || d.x&gt;0&amp;&amp;d1.x&lt;=0)
+        {
+            float maxLifeTime = max(l.g, max(r.g, max(u.g, d.g)));
+            Rim[coord] = elevationStrength * maxLifeTime / lifeTime;
+        }
+        //not an edge
+        else
+        {
+            Rim[coord] = 0;
+        }
+    }
+    //it's trail
+    else
+    {
+        Rim[coord] = 0;
+    }
+}
+
+#pragma kernel BlurRim
+[numthreads(8,8,1)]
+void BlurRim (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x &gt;= size.x || id.y &gt;= size.y)
+        return;
+    int2 coord = id.xy;
+    float3x3 c = float3x3(
+        0.0625,0.125,0.0625,
+        0.125,0.25,0.125,
+        0.0625,0.125,0.0625);
+    float col = 0;
+    for (int i = -1; i &lt;= 1; ++i)
+    {
+        for (int j = -1; j &lt;= 1; ++j)
+        {
+            col += Rim[coord+int2(i,j)] * c[i+1][j+1];
+        }
+    }
+    BlurredRim[coord] = col;
+}
+</code></pre> <p>With some adjustment to the shader graph, now we have elevation:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/2_4-480.webp 480w,/assets/img/2_4-800.webp 800w,/assets/img/2_4-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/assets/img/2_4.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> <p>Currently, the snow shader used tessellation to tessellate nearby areas around the camera to give it more detail. This can be improved by only tessellating where snow is deformed. Modify the tessellation calculation code:</p> <pre><code class="language-GLSL"> float CalcDistanceTessFactor(float4vertex, float tess, float minTess)
+ {
+     float3 worldPos = mul(unity_ObjectToWorld, vertex).xyz;
+     float2 uv = worldPos.xz/ (_OrthographicCamSize *2);
+     uv += 0.5f;
+     uv = frac(uv);
+     
+     float dist = distance(_TrailCameraPosition.xz, worldPos.xz);
+     float Trail = 0;
+     if (dist &lt;= _OrthographicCamSize)
+     {
+         Trail = abs(GetTrail(uv));
+     }
+     return Trail &gt; 0 ? tess : minTess;
+ }
+</code></pre> <p>Then only the deformed area is tessellated:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/2_5-480.webp 480w,/assets/img/2_5-800.webp 800w,/assets/img/2_5-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/assets/img/2_5.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> <p>I also spawned some snow particles around the trail with Graphics.RenderMeshIndirect. All spawning and positioning is calculated in the compute shader, and the particles are stored in an AppendStructuredBuffer:</p> <pre><code class="language-GLSL">#pragma kernel ComputeTrailParticles
+[numthreads(8,8,1)]
+void ComputeTrailParticles (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x &gt;= size.x || id.y &gt;= size.y)
+        return;
+    float2 coord = id.xy;
+    float pixelSize = 2*orthoCamSize/size;
+    float2 uv = ((float2)coord / size) * float2(1, -1);
+    float2 camPosPixelPerfect = round(cameraPosition/pixelSize)*pixelSize;
+    float2 camPosDifference = (camPosPixelPerfect-cameraPosition)*float2(-1, 1);
+    float2 posPixelPerfect = camPosPixelPerfect + (uv+float2(-0.5,0.5)) * orthoCamSize * 2;
+    float2 slideWindowUV = (posPixelPerfect / (orthoCamSize*2));
+    slideWindowUV -= float2(-0.5, 0.5);
+    slideWindowUV = frac(slideWindowUV);
+    int2 slideWindowCoord = (int2)(slideWindowUV * size);
+    if (Rim[slideWindowCoord].r &gt; 0 &amp;&amp; random(posPixelPerfect) &lt;= particleSpawnPossibility)
+    {
+        float scale = (random(posPixelPerfect+0.2)*0.3+0.2)*Rim[slideWindowCoord].r*3;
+        if (scale &gt; 0.2)
+        {
+            
+            float2 terrainUv = coord / size;
+            terrainUv -= camPosDifference / (2*orthoCamSize);
+            float height = lerp(orthoCamFarPlane, 0, terrainDepth.SampleLevel(linearClampSampler, terrainUv, 0)+ Depth[slideWindowCoord].r*Depth[slideWindowCoord].g);
+            height += Rim[slideWindowCoord].r*0.2 ;
+            Particle particle;
+            particle.scale = scale;
+            particle.position = float3(posPixelPerfect.x, height, posPixelPerfect.y);
+            particle.rotation = QuaternionFromYRotation(posPixelPerfect);
+            _Particles.Append(particle);
+        }
+    }
+}
+</code></pre> <p>The results look still a little weird, because there is only one particle mesh type.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/2_6-480.webp 480w,/assets/img/2_6-800.webp 800w,/assets/img/2_6-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/assets/img/2_6.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure>]]></content><author><name></name></author><category term="devlog"/><category term="shader"/><summary type="html"><![CDATA[infinite range interactive snow deformation shader without raycasting]]></summary></entry></feed>
