@@ -164,3 +164,5 @@ void ComputeTrailParticles (uint3 id : SV_DispatchThreadID)
 
 The results look still a little weird, because there is only one particle mesh type.
 {% include figure.liquid loading="eager" path="assets/img/2_6.png" class="img-fluid rounded z-depth-1" %}
+
+I'll try to optimize the snow particles by randomly choosing between meshes, and make the elevation around the trail a little bumpy to make the particles less obvious.
